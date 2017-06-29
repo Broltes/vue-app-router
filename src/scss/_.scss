@@ -1,0 +1,64 @@
+.router-view {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  backface-visibility: hidden;
+
+  // route fade animation
+  &-fade {
+    transition-duration: .3s;
+    transition-property: transform, opacity;
+
+    // forward
+    //
+    &-forward-enter {
+      opacity: 0;
+      transform: scale(.8);
+    }
+    &-forward-leave-active {
+      opacity: 1;
+    }
+    // back
+    //
+    &-back-leave-active {
+      opacity: 0;
+      transform: scale(.8);
+    }
+  }
+
+  // route slide animation
+  //
+  &-slide {
+    will-change: transform;
+    transition: transform .4s;
+
+    &:not(:last-child):not([data-stackid = "1"]) {
+      transform: translate3d(-20%, 0, 0);
+    }
+
+    $shadow: -4px 0px 8px 0px rgba(0,0,0,.2);
+    // back
+    //
+    &-back-enter {
+      transform: translate3d(-20%, 0, 0);
+    }
+    &-back-leave-active {
+      transform: translate3d(99%, 0, 0);
+      box-shadow: $shadow;
+    }
+    // forward
+    //
+    &-forward-enter {
+      transform: translate3d(90%, 0, 0);
+    }
+    &-forward-enter-active {
+      box-shadow: $shadow;
+    }
+    &-forward-leave-active {
+      transform: translate3d(-20%, 0, 0);
+    }
+  }
+}
