@@ -1,0 +1,37 @@
+{
+  "name": "vue-app-router",
+  "version": "0.0.0",
+  "description": "Native like router for vue web app",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Broltes/vue-app-router.git"
+  },
+  "keywords": [
+    "vue-app-router"
+  ],
+  "author": "Broltes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Broltes/vue-app-router/issues"
+  },
+  "homepage": "https://github.com/Broltes/vue-app-router#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-html": "^3.0.0",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1"
+  },
+  "dependencies": {
+    "path-to-regexp": "^1.7.0"
+  }
+}
