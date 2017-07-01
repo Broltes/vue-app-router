@@ -39,7 +39,7 @@
     will-change: transform;
     transition: transform .4s;
 
-    &:not(:last-child):not([data-stackid = "1"]) {
+    &:not(:last-child):not(&-back-leave-active):not([data-stackid = "1"]) {
       transform: translate3d(-20%, 0, 0);
     }
 

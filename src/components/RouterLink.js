@@ -4,13 +4,21 @@ export default {
     tag: {
       type: String,
       default: 'a'
-    }
+    },
+    replace: Boolean
   },
   render(h) {
-    return h(this.tag, {
-      attrs: {
-        href: this.$router.resolve(this.to)
+    let router = this.$router;
+    let path = this.to;
+    let data = {
+      on: {
+        click: e => {
+          if (this.replace) router.replace(path);
+          else router.push(path);
+        }
       }
-    }, this.$slots.default);
+    }
+
+    return h(this.tag, data, this.$slots.default);
   }
 }
