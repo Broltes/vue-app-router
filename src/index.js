@@ -50,7 +50,7 @@ function getPath() {
 }
 
 function install(Vue, options) {
-  let { routes, transition = 'fade' } = options;
+  let { routes, transition = 'fade', openPrevious } = options;
   let match = createMatch(routes);
   let route = {
     // Default transition for view exchange,
@@ -84,6 +84,22 @@ function install(Vue, options) {
     record.timestamp = timestamp;
 
     if (route.direction > 0) {
+      let previousRecord = route.stack.slice(-2)[0];
+
+      if (!openPrevious &&
+        previousRecord && previousRecord.path === record.path
+      ) {
+        // Go back to previous route,
+        // when the opening path equals to the previous path.
+        route.direction = -1;
+        // delay after direction updated
+        setTimeout(() => {
+          route.stack.pop();
+          router.go(-2);
+        }, 100);
+        return;
+      }
+
       // push for foward open
       route.stack.push(record);
     } else if (route.direction < 0) {
