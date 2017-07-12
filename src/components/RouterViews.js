@@ -8,11 +8,15 @@ export default {
     return h('div', {
       'class': 'router-views'
     }, stack.map((route, i) => {
-      return h(route.component, {
+      const data = {
         attrs: {
-          'data-stackid': stack.length - i
+          'data-stack-id': stack.length - i
         }
-      });
+      };
+      // Set route params to child component props
+      if (route.props) data.props = route.params;
+
+      return h(route.component, data);
     }));
   }
 }

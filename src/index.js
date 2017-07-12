@@ -4,21 +4,30 @@ import RouterView from './components/RouterView';
 import RouterLink from './components/RouterLink';
 import './scss/_.scss';
 
+/**
+ * @param {Array} routes
+ * @param {Object} routes[i]
+ * @param {String} routes[i].path
+ * @param {VueComponent} routes[i].component
+ * @param {Boolean} routes[i].props Passing params to component.props
+ * @return {Function}
+ */
 function createMatch(routes) {
   let recordList = [];
-  routes.forEach(({ path, component }) => {
-    recordList.push({
-      path,
-      component,
-      regex: regexp(path.replace(/\/$/, ''))
-    });
+  routes.forEach(route => {
+    const keys = [];
+    const regex = regexp(route.path.replace(/\/$/, ''), keys);
+    regex.keys = keys;
+
+    recordList.push(Object.assign({
+      regex
+    }, route));
   });
 
   function matchRecord(regex, path, params) {
     const m = path.match(regex);
 
     if (!m) return false;
-    else if (!regex.keys) return true;
 
     for (let i = 1, len = m.length; i < len; ++i) {
       const key = regex.keys[i - 1];
@@ -36,11 +45,9 @@ function createMatch(routes) {
       const record = recordList[i];
       let params = {};
       if (matchRecord(record.regex, path, params)) {
-        return {
-          path,
-          params,
-          component: record.component
-        };
+        return Object.assign({
+          params
+        }, record);
       }
     }
   }
@@ -100,7 +107,7 @@ function install(Vue, options) {
         return;
       }
 
-      // push for foward open
+      // push for forward open
       route.stack.push(record);
     } else if (route.direction < 0) {
       if (route.stack.length === 1) {
