@@ -8,17 +8,17 @@ export default {
     replace: Boolean
   },
   render(h) {
-    let router = this.$router;
-    let path = this.to;
+    let router = this.$router
+    let path = this.to
     let data = {
       on: {
         click: e => {
-          if (this.replace) router.replace(path);
-          else router.push(path);
+          if (this.replace) router.replace(path)
+          else router.push(path)
         }
       }
     }
 
-    return h(this.tag, data, this.$slots.default);
+    return h(this.tag, data, this.$slots.default)
   }
 }
