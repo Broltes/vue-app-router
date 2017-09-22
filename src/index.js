@@ -10,6 +10,7 @@ import './scss/index.scss'
  * @param {Object} routes[]
  * @param {String} routes[].path
  * @param {VueComponent} routes[].component
+ * @param {String} routes[].title
  * @param {Boolean} routes[].props Passing params to component.props
  * @return {Function}
  */
@@ -78,9 +79,14 @@ function install(Vue, options) {
     let { timestamp } = currentState
 
     if (!timestamp) {
-      window.history.replaceState(Object.assign(currentState, {
-        timestamp: (timestamp = +new Date())
-      }), '', location.hash)
+      // Add timestamp to history state for forward new route
+      window.history.replaceState(
+        Object.assign(currentState, {
+          timestamp: (timestamp = +new Date())
+        }),
+        '',
+        location.hash
+      )
     }
     if (timestamp === route.timestamp) return
 
@@ -89,6 +95,9 @@ function install(Vue, options) {
 
     let record = match(getPath())
     if (!record) return
+    if (record.title) { // set page title for current route
+      document.title = record.title
+    }
 
     Object.assign(record, {
       timestamp,
@@ -108,7 +117,7 @@ function install(Vue, options) {
         setTimeout(() => {
           route.stack.pop()
           router.go(-2)
-        }, 100)
+        }, 20)
         return
       }
 
@@ -125,7 +134,7 @@ function install(Vue, options) {
           // drop all forward views
           return record.timestamp <= timestamp
         })
-      }, 100)
+      }, 20)
     }
   }
 

@@ -1,9 +1,10 @@
 {
   "name": "vue-app-router",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Native like router for vue web app",
   "main": "src/index.js",
   "scripts": {
+    "eslint": "./node_modules/.bin/eslint . --ext .js,.vue --fix;exit 0",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
