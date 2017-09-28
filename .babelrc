@@ -1,0 +1,14 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["iOS >= 8", "Android >= 4"]
+      },
+      // Only include the polyfills that targets need.
+      "useBuiltIns": true,
+      "modules": false
+    }],
+    "stage-2"
+  ],
+  "plugins": ["transform-runtime"]
+}
